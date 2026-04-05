@@ -1,0 +1,58 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags?: string[];
+  image?: string;
+}
+
+const { title, description, pubDate, tags, image } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-AU', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const blogPostSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  author: {
+    '@type': 'Organization',
+    name: 'Dirt Girls Gardening',
+  },
+};
+---
+
+<BaseLayout title={`${title} — Dirt Girls Gardening`} description={description} image={image} type="article">
+  <article class="section">
+    <div class="container blog-post">
+      <h1>{title}</h1>
+      <time datetime={pubDate.toISOString()}>{formattedDate}</time>
+      {tags && tags.length > 0 && (
+        <div class="blog-tags">
+          {tags.map(tag => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
+      )}
+      <slot />
+
+      <div class="blog-post-footer">
+        <NewsletterSignup />
+        <div style="text-align: center; margin-top: var(--space-lg);">
+          <p>Need help with your garden?</p>
+          <p><a href="tel:0412222251" class="btn btn-primary">Call us: 0412 222 251</a></p>
+        </div>
+      </div>
+    </div>
+  </article>
+  <script type="application/ld+json" set:html={JSON.stringify(blogPostSchema)} />
+</BaseLayout>

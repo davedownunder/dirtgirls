@@ -1,0 +1,152 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TestimonialCarousel from '../components/TestimonialCarousel.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
+import ContactStrip from '../components/ContactStrip.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog'))
+  .filter(post => post.data.pubDate <= new Date())
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const recentPosts = allPosts.slice(0, 3);
+---
+
+<BaseLayout
+  title="Dirt Girls Gardening — Mornington Peninsula Garden Maintenance"
+  description="Professional garden maintenance on the Mornington Peninsula. Weeding, pruning, planting, mulching and more. Call Julie on 0412 222 251."
+>
+  <!-- Hero -->
+  <section class="hero" aria-label="Welcome">
+    <img src="/images/hero.jpg" alt="" class="hero-bg" loading="eager" />
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <h1>Mornington Peninsula Garden Maintenance</h1>
+      <p>Passionate about gardens on the Mornington Peninsula. We'll keep your garden looking beautiful all year round.</p>
+      <div class="hero-actions">
+        <a href="/contact" class="btn btn-accent">Get a Free Quote</a>
+        <a href="tel:0412222251" class="hero-phone">Call Julie: 0412 222 251</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section" aria-label="How it works">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: var(--space-lg);">How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <svg class="step-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="32" cy="32" r="30" stroke="currentColor" stroke-width="2"/>
+            <path d="M20 32 C20 20, 44 20, 44 32 C44 44, 20 44, 20 32" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M32 22 L32 14 M24 24 L18 18 M40 24 L46 18" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <h3>Walk the Garden</h3>
+          <p>We'll drop by, walk the garden, find out your likes and dislikes.</p>
+        </div>
+        <div class="step">
+          <svg class="step-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="12" y="8" width="40" height="48" rx="4" stroke="currentColor" stroke-width="2"/>
+            <line x1="20" y1="20" x2="44" y2="20" stroke="currentColor" stroke-width="2"/>
+            <line x1="20" y1="28" x2="44" y2="28" stroke="currentColor" stroke-width="2"/>
+            <line x1="20" y1="36" x2="36" y2="36" stroke="currentColor" stroke-width="2"/>
+            <path d="M36 44 L40 48 L50 38" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <h3>Free Quote</h3>
+          <p>How often we should come, for how long, and what's needed.</p>
+        </div>
+        <div class="step">
+          <svg class="step-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M32 16 C24 16, 16 24, 16 32 C16 44, 32 52, 32 52 C32 52, 48 44, 48 32 C48 24, 40 16, 32 16Z" stroke="currentColor" stroke-width="2" fill="none"/>
+            <circle cx="32" cy="30" r="6" stroke="currentColor" stroke-width="2"/>
+            <path d="M28 14 C28 10, 32 6, 36 10" stroke="currentColor" stroke-width="2" fill="none"/>
+          </svg>
+          <h3>Happy Garden</h3>
+          <p>This is a personalised service, so ensuring you're happy is critical.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Summary -->
+  <section class="section-alt" aria-label="Our services">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: var(--space-lg);">What We Do</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Weeding</h3>
+          <p>Regular weeding to keep garden beds tidy and healthy.</p>
+        </div>
+        <div class="service-card">
+          <h3>Pruning</h3>
+          <p>Expert pruning for roses, shrubs, and fruit trees.</p>
+        </div>
+        <div class="service-card">
+          <h3>Planting</h3>
+          <p>New plants, garden design, and seasonal planting.</p>
+        </div>
+        <div class="service-card">
+          <h3>Mulching</h3>
+          <p>Quality mulch to retain moisture and suppress weeds.</p>
+        </div>
+        <div class="service-card">
+          <h3>Garden Maintenance</h3>
+          <p>Regular visits to keep your garden in top shape.</p>
+        </div>
+        <div class="service-card">
+          <h3>Rose Care</h3>
+          <p>Specialist rose care through every season.</p>
+        </div>
+        <div class="service-card">
+          <h3>Garden Cleanups</h3>
+          <p>Complete garden makeovers and one-off cleanups.</p>
+        </div>
+      </div>
+      <div class="note" style="margin-top: var(--space-lg);">
+        <p><strong>Please note:</strong> We don't do lawn mowing or large hedging.</p>
+      </div>
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <a href="/services" class="btn btn-primary">View All Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="section" aria-label="Testimonials">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: var(--space-lg);">What Our Customers Say</h2>
+      <TestimonialCarousel />
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts -->
+  <section class="section-alt" aria-label="Latest gardening tips">
+    <div class="container">
+      <h2 style="text-align: center; margin-bottom: var(--space-lg);">Latest Gardening Tips</h2>
+      <div class="blog-grid">
+        {recentPosts.map(post => (
+          <div class="blog-card">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <h3><a href={`/blog/${post.id}`}>{post.data.title}</a></h3>
+            <p>{post.data.description}</p>
+          </div>
+        ))}
+      </div>
+      <div style="text-align: center; margin-top: var(--space-lg);">
+        <a href="/blog" class="btn btn-primary">More Gardening Tips &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="section">
+    <div class="container">
+      <NewsletterSignup />
+    </div>
+  </section>
+
+  <!-- Contact Strip -->
+  <ContactStrip />
+</BaseLayout>

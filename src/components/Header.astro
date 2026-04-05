@@ -1,0 +1,36 @@
+---
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services' },
+  { href: '/blog', label: 'Garden Tips' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="site-logo" aria-label="Dirt Girls Gardening — Home">
+      <img src="/images/dirt-girls-gardening.jpg" alt="Dirt Girls Gardening logo" width="50" height="50" />
+      <span>Dirt Girls</span>
+    </a>
+    <nav class="site-nav" aria-label="Main navigation">
+      <ul class="nav-links">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              aria-current={currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href)) ? 'page' : undefined}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a href="tel:0412222251" class="header-phone" aria-label="Call Julie on 0412 222 251">
+        0412 222 251
+      </a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact Us — Dirt Girls Gardening"
+  description="Get in touch with Dirt Girls Gardening for a free quote. Call Julie on 0412 222 251 or send us a message."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Let's Talk About Your Garden</h1>
+
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-detail">
+            <h2>Phone</h2>
+            <p><a href="tel:0412222251">0412 222 251</a></p>
+          </div>
+          <div class="contact-detail">
+            <h2>Email</h2>
+            <p><a href="mailto:julie.goldie@bigpond.com">julie.goldie@bigpond.com</a></p>
+          </div>
+          <div class="contact-detail">
+            <h2>Service Area</h2>
+            <p>Servicing the Mornington Peninsula, Victoria</p>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <form action="https://formspree.io/f/xgoppqgl" method="POST">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" required autocomplete="name" />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" required autocomplete="tel" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required autocomplete="email" />
+            </div>
+            <div class="form-group">
+              <label for="message">How can we help?</label>
+              <textarea id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-map">
+    <div class="container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d201456.6456!2d144.85!3d-38.35!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad5f1c1c7b1b7b7%3A0x503c983b3e747e0!2sMornington%20Peninsula%20VIC!5e0!3m2!1sen!2sau"
+        title="Map of Mornington Peninsula service area"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.querySelector('.contact-form form');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formEl = e.target as HTMLFormElement;
+    const data = new FormData(formEl);
+
+    try {
+      const response = await fetch(formEl.action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (response.ok) {
+        formEl.innerHTML = '<div class="note"><p><strong>Thanks!</strong> Julie will be in touch soon.</p></div>';
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch {
+      const btn = formEl.querySelector('button[type="submit"]');
+      if (btn) btn.textContent = 'Something went wrong — please call us instead';
+    }
+  });
+</script>

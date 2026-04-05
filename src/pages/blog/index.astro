@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = (await getCollection('blog'))
+  .filter(post => post.data.pubDate <= new Date())
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Garden Tips — Dirt Girls Gardening"
+  description="Gardening tips and advice for the Mornington Peninsula. Seasonal guides, plant care, and expert knowledge from Dirt Girls Gardening."
+>
+  <section class="section">
+    <div class="container">
+      <h1>Garden Tips</h1>
+      <p>Seasonal advice and gardening knowledge for the Mornington Peninsula.</p>
+
+      <ul class="blog-list">
+        {allPosts.map(post => (
+          <li class="blog-list-item">
+            <time datetime={post.data.pubDate.toISOString()}>
+              {post.data.pubDate.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </time>
+            <h2><a href={`/blog/${post.id}`}>{post.data.title}</a></h2>
+            <p>{post.data.description}</p>
+            {post.data.tags && post.data.tags.length > 0 && (
+              <div class="blog-tags">
+                {post.data.tags.map(tag => (
+                  <span class="tag">{tag}</span>
+                ))}
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

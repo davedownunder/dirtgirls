@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  type?: string;
+}
+
+const {
+  title,
+  description,
+  image = '/images/dirt-girls-gardening.jpg',
+  type = 'website',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Dirt Girls Gardening',
+  description: 'Professional garden maintenance service on the Mornington Peninsula, Victoria.',
+  telephone: '+61412222251',
+  email: 'julie.goldie@bigpond.com',
+  url: 'https://dirtgirls.com.au',
+  areaServed: {
+    '@type': 'Place',
+    name: 'Mornington Peninsula, Victoria, Australia',
+  },
+  serviceType: ['Garden Maintenance', 'Pruning', 'Weeding', 'Mulching', 'Planting'],
+  priceRange: '$$',
+};
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalURL} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:image" content={new URL(image, Astro.site)} />
+<meta property="og:site_name" content="Dirt Girls Gardening" />
+<meta property="og:locale" content="en_AU" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/jpeg" href="/images/favicon.jpg" />
+
+<!-- JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
