@@ -4,62 +4,16 @@ const testimonials = [
     quote: "Definitely consider Dirt Girls for your Gardening needs. Very very happy with my garden makeover and tidy. Reliable, nothing was too much trouble and definitely hard working. They got in there and got the job done. Awesome ladies… Thank you",
     author: "May Williams",
   },
-  {
-    quote: "Your review here — ask Julie to add a testimonial from a happy customer.",
-    author: "Happy Customer",
-  },
-  {
-    quote: "Your review here — ask Julie to add another testimonial.",
-    author: "Happy Customer",
-  },
 ];
 ---
 
 <div class="testimonial-carousel" aria-label="Customer testimonials" role="region">
-  {testimonials.map((t, i) => (
-    <div class={`testimonial ${i === 0 ? 'active' : ''}`} data-index={i} role="group" aria-label={`Testimonial ${i + 1} of ${testimonials.length}`}>
+  {testimonials.map((t) => (
+    <div class="testimonial active" role="group">
       <blockquote>
         &ldquo;{t.quote}&rdquo;
       </blockquote>
       <cite>&mdash; {t.author}</cite>
     </div>
   ))}
-  <div class="carousel-controls">
-    <button class="carousel-btn" data-dir="prev" aria-label="Previous testimonial">&larr;</button>
-    <button class="carousel-btn" data-dir="next" aria-label="Next testimonial">&rarr;</button>
-  </div>
 </div>
-
-<script>
-  const carousel = document.querySelector('.testimonial-carousel');
-  if (carousel) {
-    const slides = carousel.querySelectorAll('.testimonial');
-    const prevBtn = carousel.querySelector('[data-dir="prev"]');
-    const nextBtn = carousel.querySelector('[data-dir="next"]');
-    let current = 0;
-    let timer: ReturnType<typeof setInterval>;
-
-    function showSlide(index: number) {
-      slides.forEach(s => s.classList.remove('active'));
-      current = (index + slides.length) % slides.length;
-      slides[current].classList.add('active');
-    }
-
-    function startAutoPlay() {
-      timer = setInterval(() => showSlide(current + 1), 6000);
-    }
-
-    function resetAutoPlay() {
-      clearInterval(timer);
-      startAutoPlay();
-    }
-
-    prevBtn?.addEventListener('click', () => { showSlide(current - 1); resetAutoPlay(); });
-    nextBtn?.addEventListener('click', () => { showSlide(current + 1); resetAutoPlay(); });
-
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (!prefersReducedMotion.matches) {
-      startAutoPlay();
-    }
-  }
-</script>
