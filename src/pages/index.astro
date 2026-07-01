@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TestimonialCarousel from '../components/TestimonialCarousel.astro';
-import NewsletterSignup from '../components/NewsletterSignup.astro';
 import ContactStrip from '../components/ContactStrip.astro';
 import { getCollection } from 'astro:content';
 
@@ -155,13 +154,6 @@ const recentPosts = allPosts.slice(0, 3);
       <div style="text-align: center; margin-top: var(--space-lg);">
         <a href="/blog" class="btn btn-primary">More Gardening Tips &rarr;</a>
       </div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section class="section">
-    <div class="container">
-      <NewsletterSignup />
     </div>
   </section>
 

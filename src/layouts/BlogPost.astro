@@ -1,6 +1,5 @@
 ---
 import BaseLayout from './BaseLayout.astro';
-import NewsletterSignup from '../components/NewsletterSignup.astro';
 
 interface Props {
   title: string;
@@ -46,7 +45,6 @@ const blogPostSchema = {
       <slot />
 
       <div class="blog-post-footer">
-        <NewsletterSignup />
         <div style="text-align: center; margin-top: var(--space-lg);">
           <p>Need help with your garden?</p>
           <p><a href="tel:0412222251" class="btn btn-primary">Call or SMS us: 0412 222 251</a></p>
